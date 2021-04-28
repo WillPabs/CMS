@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+	<context:annotation-config />
+
+	<bean id="emfactory" class="javax.persistence.Persistence"
+		factory-method="createEntityManagerFactory">
+		<constructor-arg name="persistenceUnitName" value="CMSPU" />
+	</bean>
+	<bean id="issuesDao" class="com.fdmgroup.fdmcmsgroupproject.dao.IssuesDao" destroy-method="closeEMF">
+		<constructor-arg name="emf" ref="emfactory" />
+	</bean>
+	<bean id="userDao" class="com.fdmgroup.fdmcmsgroupproject.dao.UserDao" destroy-method="closeEMF">
+		<constructor-arg name="emf" ref="emfactory" />
+	</bean>
+	<bean id="departmentDao" class="com.fdmgroup.fdmcmsgroupproject.dao.DepartmentDao" destroy-method="closeEMF">
+		<constructor-arg name="emf" ref="emfactory" />
+	</bean>
+	<bean id="issueUpdateDao" class="com.fdmgroup.fdmcmsgroupproject.dao.IssueUpdateDao" destroy-method="closeEMF">
+		<constructor-arg name="emf" ref="emfactory" />
+	</bean>
+</beans>
